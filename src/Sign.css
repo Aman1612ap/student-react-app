@@ -1,0 +1,15 @@
+.signup{
+ background-color: ;
+ margin-top: 0px;
+ justify-content: center;
+ text-align: center;
+ font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.signup>form{
+    /* background-color:rgb(180, 180, 180); */
+    /* padding: 1vmax; */
+}
+.mb-3{
+    padding: 1vmax;
+
+}
