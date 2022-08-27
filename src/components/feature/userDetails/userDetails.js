@@ -1,7 +1,7 @@
 import React from "react";
-import "./Register.css";
+import "./userDetails.css";
 
-const Register = () => {
+const UserDetails = () => {
   return (
     <div className="form">
       <form>
@@ -50,7 +50,7 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default UserDetails;
 // First Name: <input type='text'> </input> */}
 // Last Name: <input type='text'> </input>
 // Father Name: <input type='text'> </input>

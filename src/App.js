@@ -1,49 +1,43 @@
 // import logo from "./logo.svg";
 import "./App.css";
-import Prenavbar from "./Data/Prenavbar.js";
-import Navbar from "./Data/Navbar.js";
 import { Route, Routes } from "react-router-dom";
-import Home from "./Data/Home";
-import About from "./Data/About";
-import Dashboard from "./Data/Dashboard";
-//  import Right from "./Data/Right.js";
-import Sign from "./Sign.js";
-import Signin from "./Signin.js";
-import Left from "./Data/Left.js";
-import Footer from "./Data/Footer.js";
-import Register from "./Data/Register.js";
-import AlertPopUp from "./components/common/alertPopUp/AlertPopUp";
-// import Slider from "./Data/Slider.js"
+
+
+/* imports: custom components  */
+import Prenavbar from "./components/common/prenavbar/prenavbar";
+import Navbar from "./components/common/navbar/navbar";
+import Home from "./components/feature/home/home";
+import UserDetails from "./components/feature/userDetails/userDetails";
+import About from "./components/feature/about/about";
+import Verify from "./components/feature/verify/verify";
+import Login from "./components/feature/login/login";
+import SignUp from "./components/feature/signUp/signUp";
+import Footer from "./components/common/footer/footer";
+
+
 
 
 function App() {
   return (
-    <div>
-      <Prenavbar />
-      <Navbar />
-      <div className="abc">
-        <div className="def">
-          <Left />
+    <>
+        <Prenavbar />
+        <Navbar />
+        <div className="main-container">
+          <div className="main-content-wrapper">
+            <Routes>
+                <Route exact path="/" element={<Home/>}></Route>
+                <Route path="userDetails" element={<UserDetails/>}></Route>
+                <Route path="about" element={<About/>}></Route>
+                <Route path="verify" element={<Verify/>}></Route>
+                <Route path="login" element={<Login/>}></Route>
+                <Route path="signUp" element={<SignUp/>}></Route>
+            </Routes>
+          </div>
         </div>
-        <div className="adjust">
-          <Routes>
-            <Route exact path="/" element={<Home />}></Route>
-            {/* <Route exact path="/" element={<Register />}></Route> */}
-            <Route path="feature" element={<Register></Register>}></Route>
-
-            <Route path="about" element={<About></About>}></Route>
-            <Route path="dashboard" element={<Dashboard></Dashboard>}></Route>
-            <Route path="sign" element={<Sign></Sign>}></Route>
-            <Route path="signin" element={<Signin></Signin>}></Route>
-          </Routes>
+        <div className="footer-wrapper">
+          <Footer/>
         </div>
-      </div>
-      <div className="foot">
-      {/* <Register /> */}
-      <Footer/>
-      </div>
-      {/* <AlertPopUp/> */}
-    </div>
+    </>
   );
 }
 

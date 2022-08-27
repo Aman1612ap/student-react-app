@@ -1,34 +1,56 @@
 import "./AlertPopUp.css";
-import loader from '../../../assets/images/loading.svg';
 import { useNavigate } from "react-router-dom";
 
-function AlertPopUp({isLoader=false, isVerification=false, data=null, onClosehandler=null}) {
-    const navigate = useNavigate();
+function AlertPopUp({headerObj=null, msgObj=null, btnObj=null}) {
 
-    function navigateWithClose(redirectTo) {
-        if(redirectTo) {
-            navigate(redirectTo);
+    /* 
+        headerObj: {text, className}
+        msgObj: {text, className},
+        btnObj: {
+            primary: {text, className, func},
+            secondary: {text, className, func}
         }
-        onClosehandler();
-    }
+       
+     */
 
     return (
-        <div class="pop-up-container">
-          {  isLoader?
-          <div class="loading-container" style={{background:'white'}}>
-             <img src={loader} alt="loading SVG" />
-          </div> :
-          <div class="pop-up-content-wrapper">
-                <div class="content-heading">
-                    {data.heading}
+        <div className="pop-up-container">
+          <div className="pop-up-content-wrapper">
+            {
+                Object.keys(headerObj).length > 0 && 
+                <div className={`content-heading ${headerObj.className}`}>
+                    {headerObj.text}
                 </div>
-                {data?.status && data?.email && <div class="user-data">{data.email}</div>}
-                <div class="action-container">
-                    <button onClick={()=>data?.status?navigateWithClose(data.redirectTo): navigateWithClose(false)}> {data?.status ?'Great...' : 'Try Agian..'}</button>
-                </div>
-            </div>
-        }
 
+            } 
+
+            {
+                Object.keys(msgObj).length > 0 &&
+                <div className={`content-body ${msgObj.className}`}>
+                    {msgObj.text}
+                </div>
+
+            }
+
+            {
+                Object.keys(btnObj).length > 0 &&
+                <div className="action-container btn-container">
+                    {
+                        btnObj['primary'] && 
+                        <div className={`primary-btn ${btnObj['secondary'] == null  && 'w-100'}`}>
+                            <button type = "button" className= {`btn btn-primary ${btnObj.primary.className}`} onClick={()=>btnObj.primary.func?.()}>{btnObj.primary.text}</button>
+                        </div>
+                    }
+
+                    {   
+                        btnObj['secondary'] && 
+                        <div className={`secondary-btn`}>
+                            <button type = "button" className = {`btn btn-info ${btnObj.secondary.className}`} onClick={()=>btnObj.secondary.func?.()}>{btnObj.secondary.text}</button>
+                        </div>
+                    }
+                </div> 
+            }
+            </div>
         </div>
     )
 }

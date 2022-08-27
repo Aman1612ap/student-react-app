@@ -4,28 +4,29 @@ import {constant} from '../constant/common.constant';
 
 
 
-function signUp(data) {
+async function signUp(data) {
     // data= {aadhar: null, email: null}
-    const res = post(constant.BASE_URL+constant.SIGN_UP, data);
-    const resData = await res.json()
+    const res = await post(constant.URL.BASE_URL+constant.URL.SIGN_UP, data);
     if(res.ok) {
-    return {status: 'success', ...resData};
+        const resData = await res.json();
+        return resData.status === 'success' ?  {status: 'success'} : {...resData} ;
     } else {
         return {status: 'fail'}
     }
 }
 
+
 function login(data) {
     // data= {aadhar: null}
-    return post(constant.BASE_URL+constant.login, data);
+    return post(constant.URL.BASE_URL+constant.URL.LOGIN, data);
 }
 
 async function verifyUser(data) {
     // 1. data= {aadhar: null}
-    const res = await post(constant.BASE_URL+constant.VERIFY_USER, data);
-    const resData = await res.json()
+    const res = await post(constant.URL.BASE_URL+constant.URL.VERIFY_USER, data);
     if(res.ok) {
-    return {status: 'success', ...resData};
+        const resData = await res.json();
+        return resData.status === 'success' ? {...resData, status: 'success'} : {status: 'fail'};
     } else {
         return {status: 'fail'}
     }

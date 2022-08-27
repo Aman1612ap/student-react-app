@@ -4,7 +4,7 @@ import {constant} from '../constant/common.constant';
 
 function getUserData(aadhar) {
     /* 1. aadhar */
-    return get(constant.BASE_URL+constant.GET_USER_DETAILS+`/?${aadhar}`);
+    return get(constant.URL.BASE_URL+constant.URL.GET_USER_DETAILS+`/?${aadhar}`);
 }
 
 function setUserData(userData) {
@@ -15,7 +15,7 @@ function setUserData(userData) {
         dob, currentQualification, higherQualification, currentCourseName, mobileNumber,
         homeAddress;
     } */
-    return post(constant.BASE_URL+constant.SAVE_USER_DETAILS, userData);
+    return post(constant.URL.BASE_URL+constant.URL.SAVE_USER_DETAILS, userData);
 }
 
 
@@ -28,6 +28,6 @@ function updateUserData(aadhar, userData) {
         dob, currentQualification, higherQualification, currentCourseName, mobileNumber,
         homeAddress;
     } */
-    return put(`${constant.BASE_URL} ${constant.UPDATE_USER_DETAILS.replace('{aadhar}', aadhar)}`, userData);
+    return put(`${constant.URL.BASE_URL} ${constant.URL.UPDATE_USER_DETAILS.replace('{aadhar}', aadhar)}`, userData);
 }
 

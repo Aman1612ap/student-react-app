@@ -1,21 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
+import "./navbar.css";
 
 const Navbar = () => {
   return (
     <div className="Nav">
       <Link to="/" className="navlink">
         Home
-      </Link>{" "}
+      </Link>
       <span> </span>
       <Link to="/about" className="navlink">
         About
-      </Link>{" "}
+      </Link>
       <span> </span>
-      <Link to="/dashboard" className="navlink">
+      <Link to="/verify" className="navlink">
         Verification
-      </Link>{" "}
+      </Link>
       <span> </span>
       <div className="searchbox">
         <input type="text" name="search" placeholder="Search." />
