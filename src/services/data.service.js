@@ -2,24 +2,36 @@
 import {get, post, put} from './commmon.service';
 import {constant} from '../constant/common.constant';
 
-function getUserData(aadhar) {
+export async function getUserData(aadhar) {
     /* 1. aadhar */
-    return get(constant.URL.BASE_URL+constant.URL.GET_USER_DETAILS+`/?${aadhar}`);
+    const res=  await get(constant.URL.BASE_URL+constant.URL.GET_USER_DETAILS+`/?aadhar=${aadhar}`);
+    if(res.ok) {
+        const resData = await res.json();
+        return resData.status === 'success' ?  {data: resData.data, status: 'success'} : {status: 'fail'} ;
+    } else {
+        return {status: 'fail'}
+    }
 }
 
-function setUserData(userData) {
+export async function setUserData(userData) {
    /*  
    1. data ={ 
         aadhar,
         firstName, lastName, fatherName, motherName, 
-        dob, currentQualification, higherQualification, currentCourseName, mobileNumber,
+        dob, currentQualification, higherQualification, higherQualificationYear, currentCourseName, mobileNumber,
         homeAddress;
     } */
-    return post(constant.URL.BASE_URL+constant.URL.SAVE_USER_DETAILS, userData);
+    const res = await post(constant.URL.BASE_URL+constant.URL.SAVE_USER_DETAILS, userData);
+    if(res.ok) {
+        const resData = await res.json();
+        return resData.status === 'success' ?  {status: 'success'} : {...res, status: 'fail', } ;
+    } else {
+        return {status: 'fail'}
+    }
 }
 
 
-function updateUserData(aadhar, userData) {
+export async function updateUserData(aadhar, userData) {
     /*
     1. aadhar number
     2. data ={ 
@@ -28,6 +40,12 @@ function updateUserData(aadhar, userData) {
         dob, currentQualification, higherQualification, currentCourseName, mobileNumber,
         homeAddress;
     } */
-    return put(`${constant.URL.BASE_URL} ${constant.URL.UPDATE_USER_DETAILS.replace('{aadhar}', aadhar)}`, userData);
+    const res = await put(`${constant.URL.BASE_URL}${constant.URL.UPDATE_USER_DETAILS.replace('{aadhar}', aadhar)}`, userData);
+    if(res.ok) {
+        const resData = await res.json();
+        return resData.status === 'success' ?  {status: 'success'} : {...res, status: 'fail', } ;
+    } else {
+        return {status: 'fail'}
+    }
 }
 

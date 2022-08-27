@@ -16,9 +16,15 @@ async function signUp(data) {
 }
 
 
-function login(data) {
+async function login(data) {
     // data= {aadhar: null}
-    return post(constant.URL.BASE_URL+constant.URL.LOGIN, data);
+    const res=  await post(constant.URL.BASE_URL+constant.URL.LOGIN, data);
+    if(res.ok) {
+        const resData = await res.json();
+        return resData.status === 'success' ?  {status: 'success'} : {...resData} ;
+    } else {
+        return {status: 'fail'}
+    }
 }
 
 async function verifyUser(data) {

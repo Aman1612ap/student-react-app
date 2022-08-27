@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
 
 import "./signUp.css";
 import {signUp} from '../../../services/auth.service';
 import Loader from "../../common/loader/loader";
 import AlertPopUp from "../../common/alertPopUp/AlertPopUp";
+import { withNavigation } from "../../common/wrapper/navigationWrapper";
 
 class SignUp extends Component {
   constructor() {
@@ -53,8 +53,11 @@ closePopUp = () => {
 }
 
 redirect(path) {
-  // this.props.history.push(path);
-  return <Navigate to={path} />
+  if(path=='/userDetails') {
+    this.props.navigate(path, {state:{ data: {'aadhar':this.state.aadhar}}});;
+  } else {
+    this.props.navigate(path);
+  }
 }
 
  submit = async (e) => {
@@ -154,4 +157,6 @@ redirect(path) {
   };
 };
 
-export default SignUp;
+
+
+export default withNavigation(SignUp);
