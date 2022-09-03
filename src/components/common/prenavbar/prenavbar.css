@@ -1,4 +1,5 @@
 .prenavbar{
+    max-height: 40px;
     background-color:rgb(18, 14, 32);
     margin: 0%;
     display: grid;

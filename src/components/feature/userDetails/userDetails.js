@@ -8,6 +8,8 @@ import AlertPopUp from "../../common/alertPopUp/AlertPopUp";
 
 class UserDetails extends Component {
 
+  isAdmin = false;
+
   constructor() {
     super();
     this.state = {
@@ -27,7 +29,8 @@ class UserDetails extends Component {
           higherQualificationYear:'',
           currentCourseName:'', 
           mobileNumber:'',
-          homeAddress:''
+          homeAddress:'',
+          enrollNumber: ''
       }
     }
   }
@@ -44,6 +47,10 @@ class UserDetails extends Component {
         }
       } else {
         setTimeout(()=> this.props.navigate('/login'), 0);
+      }
+      const authData= JSON.parse(localStorage.getItem('authData'));
+      if(authData) {
+        this.isAdmin = authData.role == 1? true: false;
       }
    }
 
@@ -71,9 +78,9 @@ class UserDetails extends Component {
     console.log(this.state.data, mode);
     this.setState({...this.state, isLoading: true});
     if(mode=='save') {
-      apiRes = await dataService.setUserData(this.state.data)
+      apiRes = await dataService.setUserData({...this.state.data, verificationStatus: ''})
     } else {
-      apiRes = await dataService.updateUserData(this.state.data.aadhar, this.state.data)
+      apiRes = await dataService.updateUserData({...this.state.data, verificationStatus: ''})
     }
 
     if(apiRes.status= "success") {
@@ -115,70 +122,187 @@ class UserDetails extends Component {
     this.setState({...this.state, 'isEditMode': true});
   }
 
+   redirect = (path) => {
+    this.setState({
+      isEditMode: false,
+      isDataFetched: false,
+      isLoading: false,
+      popUpData: null,
+      data:{
+          aadhar: '',
+          firstName: '',
+          lastName:'', 
+          fatherName:'', 
+          motherName:'', 
+          dob:'', 
+          currentQualification:'', 
+          higherQualification: '', 
+          higherQualificationYear:'',
+          currentCourseName:'', 
+          mobileNumber:'',
+          homeAddress:'',
+          enrollNumber: ''
+      }
+    });
+    this.props.navigate(path);
+  }
+
+  async submitVerification(status) {
+    console.log(status)
+    var apiRes= null;
+    this.setState({...this.state, isLoading: true});
+    apiRes = await dataService.updateVerificationStatus(this.state.data.aadhar, status = status == 'Accept' ? 1 : 0)
+    if(apiRes.status= "success") {
+      const data ={
+        headerObj: {text: 'Updated successfully.', className:'success'},
+        msgObj: {text: '', className:''},
+        btnObj: {
+              primary: {text:'Redirect...', className:'', func: ()=>this.redirect('/userList')}
+          }
+      };
+      this.setState({...this.state, isLoading: false, popUpData:data});
+    } else {
+      const data ={
+        headerObj: {text:'updatation failed.', className:'failed'},
+        msgObj: {text: 'Please try again.', className:''},
+        btnObj: {
+              primary: {text:'Try again.', className:'', func: ()=>this.closePopUp('failed')}
+          }
+      };
+      this.setState({...this.state, isLoading: false, popUpData:data});
+    }
+  }
+
   render() {
     return (
     <>
-      <div className="form">
-        <form>
-          <h4>
+      <div className="user-details-container form  container-fluid">
+      <h3 className="align-center">User Details</h3>
+        <form className="form-group" >
             <div className="personaldetails">
-              Personal Details:<br></br>
-              <label>First Name: </label>
-              <input type="text" name="firstName" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.firstName} disabled={this.shouldDisabled('firstName')}/>
-              <label>Last Name: </label>
-              <input type="text" name="lastName" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.lastName} disabled={this.shouldDisabled('lastName')}/>
-              <label>Father Name: </label>
-              <input type="text" name="fatherName" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.fatherName} disabled={this.shouldDisabled('fatherName')}/>
-              <label>Mother Name: </label>
-              <input type="text" name="motherName" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.motherName} disabled={this.shouldDisabled('motherName')}/>
-              <label>DOB: </label>
-              <input type="date" name="dob" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.dob} disabled={this.shouldDisabled('dob')}/>
-            </div>
-            <div className="contectdetails">
-              Contect Details:<br></br>
-              <label>Mobile Number: </label>
-              <input type="number" name="mobileNumber" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.mobileNumber} disabled={this.shouldDisabled('mobileNumber')}/>
-              {/* <label>Email: </label>
-              <input type="Email" name="firstName" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.aadhar}></input> */}
-              <label>Aadhar card: </label>
-              <input type="text" name="aadhar" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.aadhar} disabled={true}/>
-              <label>Home Adderase: </label>
-              <input type="text" name="homeAddress" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.homeAddress} disabled={this.shouldDisabled('homeAddress')}/>
-            </div>
-            <div className="Qulification">
-              Qualification Details:
-              <br></br>
-              <label>Higher qulification: </label>
-              <input type="text" name="higherQualification" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.higherQualification}/>
-              <label>Higher qulification Year: </label>
-              <input type="Year" name="higherQualificationYear" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.higherQualificationYear}/>
-              <label>Current qulification: </label>
-              <input type="text" name="currentQualification" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.currentQualification}/>
-              <label>Course Name: </label>
-              <input type="text" name="currentCourseName" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.currentCourseName}/>
-              {/* <label>Branch name: </label>
-              <input type="text" name="aadhar" 
-              onChange={(e)=> this.handleChange(e)} value={this.state.data.aadhar}></input> */}
-            </div>
-          </h4>
-          {!this.state.isEditMode && !this.state.isDataFetched && <button type="button" onClick={()=>this.submit()}>Save details</button>}
-          {this.state.isEditMode && <button type="button" onClick={()=> this.submit()}>Update Details</button>}
+              <div className="section-label">Personal Details:</div> 
+              
+              <div className="row">
+                <div className="col-sm-6">
+                    <label className="form-label">First Name: </label>
+                    <input  className="form-control" type="text" name="firstName" 
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.firstName} disabled={this.shouldDisabled('firstName')}/>
+                </div>
 
-          {!this.state.isEditMode && this.state.isDataFetched && <button type="button" onClick={()=>this.editDetails()}>Edit details</button> }
+                <div className="col-sm-6">
+                  <label className="form-label">Last Name: </label>
+                  <input type="text" name="lastName" className="form-control"
+                  onChange={(e)=> this.handleChange(e)} value={this.state.data.lastName} disabled={this.shouldDisabled('lastName')}/>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-sm-6">
+                  <label className="form-label">Father Name: </label>
+                  <input type="text" name="fatherName" className="form-control"
+                  onChange={(e)=> this.handleChange(e)} value={this.state.data.fatherName} disabled={this.shouldDisabled('fatherName')}/>
+                </div> 
+                <div className="col-sm-6"> 
+                  <label className="form-label">Mother Name: </label>
+                  <input type="text" name="motherName" className="form-control"
+                  onChange={(e)=> this.handleChange(e)} value={this.state.data.motherName} disabled={this.shouldDisabled('motherName')}/>
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-sm-6">
+                  <label className="form-label">DOB: </label>
+                  <input type="date" name="dob" className="form-control"
+                  onChange={(e)=> this.handleChange(e)} value={this.state.data.dob} disabled={this.shouldDisabled('dob')}/>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="contectdetails">
+              <div className="section-label">Contect Details:</div>
+
+              <div className="row">
+                  <div className="col-sm-6">
+                    <label className="form-label">Mobile Number: </label>
+                    <input type="number" name="mobileNumber" className="form-control" 
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.mobileNumber} disabled={this.shouldDisabled('mobileNumber')}/>
+                  </div>
+
+                  <div className="col-sm-6">
+                    <label className="form-label">Aadhar card: </label>
+                    <input type="text" name="aadhar" className="form-control"
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.aadhar} disabled={true}/>
+                  </div>
+              </div>
+
+              <div className="row">
+                  <div className="col-sm-6">
+                    <label className="form-label">Home Adderase: </label>
+                    <input type="text" name="homeAddress" className="form-control"
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.homeAddress} disabled={this.shouldDisabled('homeAddress')}/>
+                  </div>
+              </div>
+            </div>
+            
+            <div className="Qulification">
+                <div className="section-label">Qualification Details: </div>
+
+                <div className="row">
+                  <div className="col-sm-6">
+                      <label className="form-label">Higher qulification: </label>
+                      <input type="text" name="higherQualification" className="form-control"
+                      onChange={(e)=> this.handleChange(e)} value={this.state.data.higherQualification}
+                      disabled={this.shouldDisabled('higherQualification')} />
+                  </div>
+
+                  <div className="col-sm-6">
+                      <label className="form-label">Higher qulification Year: </label>
+                      <input type="Year" name="higherQualificationYear" className="form-control"
+                      onChange={(e)=> this.handleChange(e)} value={this.state.data.higherQualificationYear}
+                      disabled={this.shouldDisabled('higherQualificationYear')}/>
+                  </div>
+                </div>
+
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <label className="form-label">Current qulification: </label>
+                    <input type="text" name="currentQualification" className="form-control"
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.currentQualification}
+                    disabled={this.shouldDisabled('currentQualification')}/>
+                  </div>
+                  <div className="col-sm-6">
+                    <label className="form-label">Course Name: </label>
+                    <input type="text" name="currentCourseName" className="form-control"
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.currentCourseName}
+                    disabled={this.shouldDisabled('currentCourseName')}/>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-sm-6">
+                    <label className="form-label">Current Enrollment number: </label>
+                    <input type="text" name="enrollNumber" className="form-control"
+                    onChange={(e)=> this.handleChange(e)} value={this.state.data.enrollNumber}
+                    disabled={this.shouldDisabled('enrollNumber')}/>
+                  </div>
+                </div>
+            </div>
+
+          {!this.state.isEditMode && !this.state.isDataFetched && !this.isAdmin && <button type="button" onClick={()=>this.submit()}>Save details</button>}
+          {/* {this.state.isEditMode && <button type="button" onClick={()=> this.submit()}>Update Details</button>} */}
+
+          {/* {!this.state.isEditMode && this.state.isDataFetched && <button type="button" onClick={()=>this.editDetails()}>Edit details</button> } */}
         </form>
+        {this.isAdmin &&
+          <div className="admin-btn-group align-center">
+
+          <button type="button" className="btn btn-primary m-3" onClick={()=>this.submitVerification('Accept')}>Accept</button>
+          <button type="button" className="btn btn-secondary m-3" onClick={()=>this.submitVerification('Reject')}>Reject</button>
+
+        </div>
+        }
       </div>
       {this.state.isLoading && <Loader isLoading={this.state.isLoading}/>}
       {this.state.popUpData && <AlertPopUp {...this.state.popUpData}/>}

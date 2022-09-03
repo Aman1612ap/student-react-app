@@ -15,8 +15,8 @@ const Verify = () => {
     const res = await verifyUser({aadhar: textInput});
     if (res.status== 'success' )  {
       const data = {
-        headerObj: {text:'Verification Success', className:'sucsess'},
-        msgObj: {text: res.data, className:''},
+        headerObj: {text: res.verificationStatus == 1 ? 'Verification Success': res.verificationStatus == 0 ? 'Verification failed.': 'Verification is in progress.', className:'sucsess'},
+        msgObj: {text: res.verificationStatus == 1 ? res.data.enrollNumber : 'Please contact to admin.', className:''},
         btnObj: {
               primary: {text:'close', className:'', func: hidePopUp}
           }

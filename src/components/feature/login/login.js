@@ -3,12 +3,14 @@ import AlertPopUp from '../../common/alertPopUp/AlertPopUp';
 import Loader from '../../common/loader/loader';
 import * as authService from '../../../services/auth.service';
 import { withNavigation } from '../../common/wrapper/navigationWrapper';
+import './login.css';
 
 const Login = (props) => {
 
   const [aadhar, setAadhar]= useState('');
   const [isLoading, setLoading]= useState(null);
-  const [popUpData, setPopUpData] = useState(null)
+  const [popUpData, setPopUpData] = useState(null);
+  const [formError, setFormError]= useState({aadhar: null,email: ''});
 
 
   const closePopUp = () => {
@@ -30,6 +32,10 @@ const Login = (props) => {
     setLoading(true);
     const res = await authService.login({aadhar: aadhar});
     if (res.status== 'success')  {
+          if(res.role) {
+            const data  = {'aadhar': aadhar, role: res.role};
+            localStorage.setItem('authData', JSON.stringify(data));
+          }
           const data ={
             headerObj: {text:'Login successfully.', className:'sucsess'},
             msgObj: {text: 'Press below button to check your profile.', className:''},
@@ -54,17 +60,41 @@ const Login = (props) => {
   };
 
   const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    if(name == 'aadhar') {
-      setAadhar(value);
+    const fieldName = e.target.name;
+    const fielValue = e.target.value;
+    if(fieldName == 'aadhar') {
+      setAadhar(fielValue);
     }
+    validatefield(fieldName, fielValue);
+  }
+
+  const validatefield = function(fieldName, fielValue) {
+    switch(fieldName) {
+      case 'aadhar':
+        if(!fielValue) {
+          setFormError({[fieldName]: "Aadhar is required."});
+        } else if(!(/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/.test(fielValue))) {
+          setFormError({[fieldName]: "Enter valid aadhar."});
+        } else {
+          setFormError({[fieldName]: ""});
+        }
+        break;
+      case 'email':
+        if(!fielValue) {
+          setFormError({...formError, [fieldName]:"Email is required."});
+        } else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fielValue))) {
+          setFormError({...formError, [fieldName]: "Enter valid email."});
+        } else {
+          setFormError({...formError, [fieldName]: ""});
+        }
+        break;
+    };
   }
 
   return (
     <>
-    <div>
-      <form onSubmit={login}>
+    <div className='login'>
+      <form onSubmit={login} className='form-group'>
         <h3>Sign In </h3>
         {/* <div className="mb-3">
           <label>Email address</label>
@@ -75,16 +105,17 @@ const Login = (props) => {
           />
         </div> */}
         <div className="mb-3">
-          <label>Aadhar Number</label>
+          <label className='form-label'>Aadhar Number</label>
           <input
             type="text"
             name="aadhar"
             className="form-control"
             placeholder="Enter Aadhar"
-            onChange={(e)=> setAadhar(e.target.value)}
+            onChange={(e)=> handleChange(e)}
           />
+          {formError.aadhar && <div className="form-error">{formError.aadhar}</div>}
         </div>
-        <div className="mb-3">
+        <div className="mb-3 remember-me">
           <div className="custom-control custom-checkbox">
             <input
               type="checkbox"
@@ -97,7 +128,7 @@ const Login = (props) => {
           </div>
         </div>
         <div className="d-grid">
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary" disabled={formError.aadhar==null || formError.aadhar}>
             Submit
           </button>
         </div>

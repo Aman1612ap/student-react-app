@@ -34,7 +34,7 @@ function AlertPopUp({headerObj=null, msgObj=null, btnObj=null}) {
 
             {
                 Object.keys(btnObj).length > 0 &&
-                <div className="action-container btn-container">
+                <div className="action-container btn-container text-center">
                     {
                         btnObj['primary'] && 
                         <div className={`primary-btn ${btnObj['secondary'] == null  && 'w-100'}`}>

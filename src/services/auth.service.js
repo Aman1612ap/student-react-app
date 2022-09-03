@@ -21,7 +21,7 @@ async function login(data) {
     const res=  await post(constant.URL.BASE_URL+constant.URL.LOGIN, data);
     if(res.ok) {
         const resData = await res.json();
-        return resData.status === 'success' ?  {status: 'success'} : {...resData} ;
+        return resData.status === 'success' ?  {status: 'success', role: resData.role} : {...resData} ;
     } else {
         return {status: 'fail'}
     }

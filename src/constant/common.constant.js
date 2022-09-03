@@ -7,7 +7,9 @@ const constant = {
         UPDATE_USER_DETAILS:"/updateUserData/{aadhar}",
         VERIFY_USER:"/verify",
         SIGN_UP:"/signUp",
-        LOGIN: "/login"
+        LOGIN: "/login",
+        UPDTAE_VERIFICATION_STATUS: "/updateVerificationStatus",
+        GET_ALL_USER_DATA: "/allUserData"
     }
 }
 
