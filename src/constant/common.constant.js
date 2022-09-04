@@ -1,6 +1,6 @@
 const constant = {
     URL: {
-        // BASE_URL:"https://student-validator.herokuapp.com",
+        // BASE_URL:"https://student-validator-v1.herokuapp.com/",
         BASE_URL:"http://localhost:3011",
         GET_USER_DETAILS:"/getUserData",
         SAVE_USER_DETAILS:"/saveUserData",
