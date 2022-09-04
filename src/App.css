@@ -2,10 +2,9 @@
 html {
   height: 100%;
 }
+
 body {
   margin: 0;
-  /* background-color: rgb(224, 221, 221); */
-  /* text-align: center; */
   justify-content: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -24,11 +23,9 @@ body {
   margin-bottom: 10px;
 }
 .main-content-wrapper{
-  /* padding-left: 20%; */
-/* margin-left: 20%; */
-/* background-color: aliceblue; */
   flex: 1;
   width: 100%;
+  padding: 0 20px;
 }
 .footer-wrapper{
   background-color: rgb(243, 237, 237);
@@ -36,7 +33,7 @@ body {
   position: fixed;
   left: 0;
   bottom: 0;
-  height: 100px;
+  height: 80px;
   width: 100%;
   text-align: center;
   color: white;

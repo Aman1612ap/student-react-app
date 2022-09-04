@@ -93,7 +93,7 @@ const Login = (props) => {
     <>
     <div className='login'>
       <form onSubmit={login} className='form-group'>
-        <h3>Sign In </h3>
+        <h3>Log In </h3>
         {/* <div className="mb-3">
           <label>Email address</label>
           <input

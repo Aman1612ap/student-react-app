@@ -15,10 +15,9 @@ const Prenavbar = () => {
         <div>
         <Link to="/signUp" className="navlink" >Sign up</Link>  <span> </span>
         <Link to="/login" className="navlink" >Login</Link>  <span> </span>
+        <Link to="/help" className="navlink" >Contact</Link>  <span> </span>
 
-        {/* <a href="/">Sign Up</a> <span>|</span> */}
-        {/* <a href="/">Sign in</a> <span>|</span> */}
-        <a href="/">Help</a> <span>|</span>
+        {/* <a href="/">Help</a> <span>|</span> */}
         </div>
     </div>
   )

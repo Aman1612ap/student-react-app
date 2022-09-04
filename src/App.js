@@ -15,7 +15,7 @@ import SignUp from "./components/feature/signUp/signUp";
 import Footer from "./components/common/footer/footer";
 import UserList from "./components/feature/usersList/usersList";
 import { useEffect } from "react";
-
+import  Help from"../src/components/common/help/help";
 
 
 
@@ -33,7 +33,7 @@ function App() {
         <Prenavbar />
         <Navbar />
         <div className="main-container">
-          <div className="main-content-wrapper">
+          <div className="main-content-wrapper d-flex justify-content-center">
             <Routes>
                 <Route exact path="/" element={<Home/>}></Route>
                 <Route path="userDetails" element={<UserDetails/>}></Route>
@@ -42,6 +42,8 @@ function App() {
                 <Route path="verify" element={<Verify/>}></Route>
                 <Route path="login" element={<Login/>}></Route>
                 <Route path="signUp" element={<SignUp/>}></Route>
+                <Route path="help" element={<Help/>}></Route>
+
             </Routes>
           </div>
         </div>
