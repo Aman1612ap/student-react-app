@@ -1,3 +1,12 @@
 .align-center {
     text-align: center;
 }
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+.mh-10 {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}

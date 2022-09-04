@@ -32,15 +32,13 @@ const Login = (props) => {
     setLoading(true);
     const res = await authService.login({aadhar: aadhar});
     if (res.status== 'success')  {
-          if(res.role) {
-            const data  = {'aadhar': aadhar, role: res.role};
-            localStorage.setItem('authData', JSON.stringify(data));
-          }
+            const authData  = {'aadhar': aadhar, role: res.role};
+            localStorage.setItem('authData', JSON.stringify(authData));
           const data ={
             headerObj: {text:'Login successfully.', className:'sucsess'},
-            msgObj: {text: 'Press below button to check your profile.', className:''},
+            msgObj: {text: res.role == 1? 'Verify Users details':'Press below button to check your profile.', className:''},
             btnObj: {
-                  primary: {text:'Get Profile', className:'', func: () => redirect('/userDetails')}
+                  primary: {text: res.role == 1? 'Verify users': 'Get Profile', className:'', func: () =>  res.role == 1 ? redirect('/userList') :redirect('/userDetails')}
               }
           };
           setLoading(false);

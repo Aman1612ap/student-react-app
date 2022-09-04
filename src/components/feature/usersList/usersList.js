@@ -21,6 +21,10 @@ const [isLoading, setLoading] = useState(false);
 
 const [userList, setUserList] = useState([]);
 useEffect(()=> {
+    const authData= JSON.parse(localStorage.getItem('authData'))
+    if (!authData) {
+        setTimeout(()=> props.navigate('/login'), 0);       
+    }
     async function fetchData() {
         setLoading(true);
         const userDetailsRes = await dataService.getAllUsersData();
@@ -61,11 +65,11 @@ const redirect = (aadhar) => {
                         <td>{data.aadhar}</td>
                         <td>{data.enrollNumber}</td>
                         <td>
-                            { data.verificationStatus == '' &&
+                            { data.verificationStatus == '-1' &&
                                 <button className="btn btn-info" onClick={()=> redirect(data.aadhar)}>Check</button>
                             }
                             {
-                                data.verificationStatus !== '' && <>{data.verificationStatus == 1? <span className="text-success font-weight-bold">Verified</span>: <span className="text-warning font-weight-bold">Rejected</span>} </>
+                                data.verificationStatus !== '-1' && <>{data.verificationStatus == 1? <span className="text-success font-weight-bold">Verified</span>: <span className="text-warning font-weight-bold">Rejected</span>} </>
                             }
                         </td>
                     </tr>

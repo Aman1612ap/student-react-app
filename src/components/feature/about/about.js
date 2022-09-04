@@ -6,7 +6,6 @@ const About = () => {
   }
   return (
     <div style={headerContainer}>
-      <p>
         <h1>About the wabsite.</h1>
         <h2>This wabsite work on following three steps.</h2>
         <h3>1. user register itself.</h3>
@@ -19,7 +18,6 @@ const About = () => {
           organizaton need to conforn whatever user 
           are varify or not on the basis of their qulification with Aadhar Number.
         </h2>
-      </p>
     </div>
   )
 }

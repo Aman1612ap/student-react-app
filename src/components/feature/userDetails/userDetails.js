@@ -36,8 +36,9 @@ class UserDetails extends Component {
   }
 
   async componentDidMount() {
+      const authData= JSON.parse(localStorage.getItem('authData'))
       const params = this.props.location;
-      if (params?.state?.data?.aadhar) {
+      if (params?.state?.data?.aadhar && authData) {
         const userDetailsRes = await dataService.getUserData(params.state.data.aadhar);
         if(userDetailsRes.status == 'success') {
          this.setUserDetails(userDetailsRes.data);
@@ -48,12 +49,11 @@ class UserDetails extends Component {
       } else {
         setTimeout(()=> this.props.navigate('/login'), 0);
       }
-      const authData= JSON.parse(localStorage.getItem('authData'));
+      
       if(authData) {
         this.isAdmin = authData.role == 1? true: false;
       }
    }
-
 
    async setUserDetails(data) {
     const dataKeys = Object.keys(data);

@@ -4,9 +4,9 @@ import "./home.css"
 const Home = () => {
   return (
     <div className='home'>
-      <h1>One Point Student varification:</h1>
-        <h2>This is a globle plateform where student are varify by providing same essential informaion
-        and at 'one point' mean if the student reach on this wabsite at once and feeded own data then evey oraganization and evey person
+      <h1>One Point Student verification:</h1>
+        <h2>This is a globle plateform where student are varify by providing same essential information
+        and at 'one point' mean if the student reach on this wabsite at once and feed own data and this data are verify by the admin to the original then every oraganization and evey person
         has to visit and enter their aadhar number and currect name then he want to check whatever student or user are varify or not.
         </h2>
       {/* <img src='https://img.freepik.com/premium-photo/asian-cute-girl-with-glasses-holding-book-while-sitting-pile-books-with-city-blue-sky_9083-3228.jpg?w=740'

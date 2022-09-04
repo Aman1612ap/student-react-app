@@ -27,6 +27,7 @@ function App() {
       localStorage.setItem('authData', null);
     };
   }, []);
+  
   return (
     <>
         <Prenavbar />

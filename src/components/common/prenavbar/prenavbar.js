@@ -6,7 +6,7 @@ const Prenavbar = () => {
   return (
     <div className="prenavbar">
         <div>
-            <a href="/">Student varification</a> <span>|</span>
+            <a href="/">Student verification</a> <span>|</span>
             <a href="/">Get On Mobile</a> <span>|</span>
             {/* <a href="/">Feature</a> <span></span> */}
             <Link to="/verify" className="navlink" >Feature</Link>  <span> </span>
