@@ -1,0 +1,16 @@
+.align-center {
+    text-align: center;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+.mh-10 {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}

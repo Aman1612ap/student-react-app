@@ -49,3 +49,31 @@ export async function updateUserData(aadhar, userData) {
     }
 }
 
+
+
+
+export async function updateVerificationStatus(aadhar, status) {
+    /*
+    1. aadhar verificationStatus
+     */
+    const userData = {aadhar: aadhar, verificationStatus: status}
+    const res = await post(`${constant.URL.BASE_URL}${constant.URL.UPDTAE_VERIFICATION_STATUS}`, userData);
+    if(res.ok) {
+        const resData = await res.json();
+        return resData.status === 'success' ?  {status: 'success'} : {...res, status: 'fail', } ;
+    } else {
+        return {status: 'fail'}
+    }
+}
+
+
+export async function getAllUsersData() {
+    const res=  await get(constant.URL.BASE_URL+constant.URL.GET_ALL_USER_DATA);
+    if(res.ok) {
+        const resData = await res.json();
+        return resData.status === 'success' ?  {data: resData.data, status: 'success'} : {status: 'fail'} ;
+    } else {
+        return {status: 'fail'}
+    }
+}
+

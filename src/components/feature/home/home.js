@@ -2,12 +2,17 @@ import React from 'react'
 import "./home.css"
 
 const Home = () => {
+
   return (
     <div className='home'>
-      <h1>One Point Student varification:</h1>
-        <h2>This is a globle plateform where student are varify by providing same essential informaion
-        and at 'one point' mean if the student reach on this wabsite at once and feeded own data then evey oraganization and evey person
-        has to visit and enter their aadhar number and currect name then he want to check whatever student or user are varify or not.
+      <h1>One Point Student verification:</h1>
+      <div className='show'>
+      <img src="http://www.hcpcollege.in/assets/img/student.jpg" alt='images' width='30%px'/>
+      </div>
+        <h2 className='align-left'>This is a global plateform where student are verifed by providing some essential information at one point.
+        'At one point' means, student's can put there all information at one platform. Once information verified by the admin then the data will be available for 
+        organigation for further processes.
+        Student can also get the data verification status on the same platform.
         </h2>
       {/* <img src='https://img.freepik.com/premium-photo/asian-cute-girl-with-glasses-holding-book-while-sitting-pile-books-with-city-blue-sky_9083-3228.jpg?w=740'
       alt='ty2'width='1350' height='500'

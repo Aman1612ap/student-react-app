@@ -9,7 +9,23 @@
     /* background-color:rgb(180, 180, 180); */
     /* padding: 1vmax; */
 }
+.form-group .form-label{
+    display: block;
+    text-align: left;
+    font-size: .7rem;
+    margin-bottom: .2rem;
+}
+
+.form-group .form-control~:not(.form-error){
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.form-group .form-error {
+    font-size: 1rem;
+    color: red;
+    text-align: left;
+}
 .mb-3{
     padding: 1vmax;
-
 }

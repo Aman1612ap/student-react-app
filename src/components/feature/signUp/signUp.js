@@ -12,40 +12,46 @@ class SignUp extends Component {
     this.state= {
     isLoading: null,
     popUpData: null,
-    formData: {fName: null, lName:null, email:null, password:null},
-    formError: {fName: null, lName:null, email:null, password:null},
+    formData: {aadhar: '', email:''},
+    formError: {aadhar:'', email:''},
     formValid: false,
-    aadhar: '',
-    email: ''
   }
 }
 
 handleInput = (e) => {
   const fieldName = e.target.name;
   const fielValue = e.target.value;
+  this.setState({...this.state, formData:{...this.state.formData, [fieldName]: fielValue}});
+  this.validatefield(fieldName, fielValue);
+}
 
-  let formData = this.state.formData;// {fName: null, lName:null, email:null, password:null},
-  let  formError =this.state.formError; // {fName: null, lName:null, email:null, password:null},
-  let  formValid= this.state.formValid;// false 
-  
-  // switch(fieldName) {
-  //   case 'fName':
-  //     let isValidEmail = fielValue.indexOf('@') >-1;
-  //     if(!isValidEmail) {
-  //       this.setState()
-  //     }
-  //     break;
-  //   case 'lName':
-  //     break;
-  //   case 'email':
-  //     break;
-  //   case 'password':
-  //     break;
+validatefield(fieldName, fielValue) {
+  switch(fieldName) {
+    case 'aadhar':
+      if(!fielValue) {
+        this.setState((prevState)=> {return {...prevState, formError:{...prevState.formError,[fieldName]: "Aadhar is required."}}});
+      } else if(!(/^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/.test(fielValue))) {
+        this.setState((prevState)=> {return {...prevState, formError:{...prevState.formError,[fieldName]: "Enter valid aadhar."}}});
+      } else {
+        this.setState((prevState)=> {return {...prevState, formError:{...prevState.formError,[fieldName]: ""}}});
+      }
+      break;
+    case 'email':
+      if(!fielValue) {
+        this.setState((prevState)=> {return {...prevState, formError:{...prevState.formError, [fieldName]:"Email is required."}}});
+      } else if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(fielValue))) {
+        this.setState((prevState)=> {return {...prevState, formError:{...prevState.formError, [fieldName]: "Enter valid email."}}});
+      } else {
+        this.setState((prevState)=> {return {...prevState, formError:{...prevState.formError, [fieldName]:""}}});
+      }
+      break;
+  };
 
-  // }
-
-  this.setState({...this.state, [fieldName]: fielValue});
-
+  if(!this.state.formError.email && !this.state.formError.aadhar) {
+    this.setState((preState)=> {return {...preState, formValid: true}});
+  } else {
+    this.setState((preState)=> {return {...preState, formValid: false}});
+  }
 }
 
 closePopUp = () => {
@@ -54,7 +60,7 @@ closePopUp = () => {
 
 redirect(path) {
   if(path=='/userDetails') {
-    this.props.navigate(path, {state:{ data: {'aadhar':this.state.aadhar}}});;
+    this.props.navigate(path, {state:{ data: {'aadhar':this.state.formData.aadhar}}});;
   } else {
     this.props.navigate(path);
   }
@@ -62,9 +68,8 @@ redirect(path) {
 
  submit = async (e) => {
   e.preventDefault();
-  console.log(this.state);
   this.setState({...this.state, isLoading: true});
-    const res = await signUp({aadhar: this.state.aadhar, email: this.state.email});
+    const res = await signUp({aadhar: this.state.formData.aadhar, email: this.state.formData.email});
     if (res.status== 'success')  {
           const data ={
             headerObj: {text:'Sign up successfully.', className:'sucsess'},
@@ -91,56 +96,36 @@ redirect(path) {
    return (
     <>
     <div className="signup">
-        <form onSubmit={this.submit}>
+        <form onSubmit={this.submit} noValidate autoComplete="off" className="form-group">
           <h3>Sign Up</h3>
-          {/* <div className="mb-3">
-            <label>First name</label>
-            <input
-              type="text"
-              name="fName"
-              className="form-control"
-              placeholder="First name"
-              onInput={(e)=> this.handleInput(e)}
-            />
-            <div className="error" >
-
-            </div>
-          </div>
           <div className="mb-3">
-            <label>Last name</label>
-            <input
-            type="text" 
-            name="lName"
-            className="form-control" 
-            placeholder="Last name" 
-            onInput={(e)=> this.handleInput(e)}
-            
-            />
-          </div> */}
-          <div className="mb-3">
-            <label>Aadhar number</label>
+            <label className="form-label">Aadhar number</label>
             <input
               type="text"
               name="aadhar"
               className="form-control"
               placeholder="Enter Aadhar"
-              value={this.state.aadhar}
+              value={this.state.formData.aadhar}
               onInput={(e)=> this.handleInput(e)}
+              autoComplete="off"
             />
+            {this.state.formError.aadhar && <div className="form-error">{this.state.formError.aadhar}</div>}
           </div>
           <div className="mb-3">
-            <label>Email address</label>
+            <label className="form-label">Email address</label>
             <input
               type="email"
               name="email"
               className="form-control"
               placeholder="Enter email"
-              value={this.state.email}
+              value={this.state.formData.email}
               onInput={(e)=> this.handleInput(e)}
+              autoComplete="off"
             />
+            {this.state.formError.email && <div className="form-error">{this.state.formError.email}</div>}
           </div>
           <div className="d-grid">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary" disabled={!this.state.formValid}>
               Sign Up
             </button>
           </div>

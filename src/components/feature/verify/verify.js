@@ -15,8 +15,8 @@ const Verify = () => {
     const res = await verifyUser({aadhar: textInput});
     if (res.status== 'success' )  {
       const data = {
-        headerObj: {text:'Verification Success', className:'sucsess'},
-        msgObj: {text: res.data, className:''},
+        headerObj: {text: res.verificationStatus == 1 ? 'Verification Success': res.verificationStatus == 0 ? 'Verification failed.': 'Verification is in progress.', className:'sucsess'},
+        msgObj: {text: res.verificationStatus == 1 ? `Enrollment number: ${res.data.enrollNumber}`: 'Please contact to admin.', className:'align-center'},
         btnObj: {
               primary: {text:'close', className:'', func: hidePopUp}
           }
@@ -48,15 +48,15 @@ const Verify = () => {
 
 
   return (
-    <div className='dash1'>
-      <div className='vari'>Varification
-      </div>
+    <div className='verification-container'>
+      <h2 className='verification-heading align-center mb-10'>Verification
+      </h2>
       
-      <div className='vari1'>
-      <label>Aadhar no :</label>
+      <div className='verification-wrapper align-center'>
+      <label>Aadhar no: </label>
       <input onChange={handleChange} type="text" placeholder='Aadhar number' ></input>
       {/* <label>Name :</label><input type="text"placeholder='Enter name'></input> */}
-      <button onClick={verify}>Check</button>
+      <button onClick={verify} className="btn btn-primary mh-10">Check</button>
       </div>
       {isLoading && <Loader isLoading={isLoading}/>}
       {popUpData && <AlertPopUp {...popUpData}/>} 

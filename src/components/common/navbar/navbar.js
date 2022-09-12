@@ -17,10 +17,10 @@ const Navbar = () => {
         Verification
       </Link>
       <span> </span>
-      <div className="searchbox">
+      {/* <div className="searchbox">
         <input type="text" name="search" placeholder="Search." />
         <button>Search</button>
-      </div>
+      </div> */}
     </div>
   );
 };
