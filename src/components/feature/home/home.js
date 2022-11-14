@@ -1,6 +1,6 @@
 import React from 'react'
 import "./home.css"
-import Carousel  from "react-bootstrap/carousel";
+import {Carousel}  from "react-bootstrap";
 import { Link } from "react-router-dom";
 // import Footer from "../";
 
