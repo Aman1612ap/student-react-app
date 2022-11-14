@@ -4,7 +4,7 @@ import './loader.css';
 
 function Loader({isLoading= false}) {
     return(
-        <>
+        <div>
             {isLoading && 
                 <div className="loader-container">
                     <div className="loading-wrapper" style={{background:'white'}}>
@@ -12,7 +12,7 @@ function Loader({isLoading= false}) {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 }
 

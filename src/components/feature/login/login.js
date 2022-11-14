@@ -90,7 +90,7 @@ const Login = (props) => {
   }
 
   return (
-    <>
+    <div>
     <div className='login'>
       <form onSubmit={login} className='form-group'>
         <h3>Log In </h3>
@@ -137,7 +137,7 @@ const Login = (props) => {
     </div>
     {isLoading && <Loader isLoading={isLoading}/>}
     {popUpData && <AlertPopUp {...popUpData}/>}
-    </>
+    </div>
   )
 }
 

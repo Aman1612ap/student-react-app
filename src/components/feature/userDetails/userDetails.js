@@ -175,7 +175,7 @@ class UserDetails extends Component {
 
   render() {
     return (
-    <>
+    <div>
       <div className="user-details-container form  container-fluid">
       <h3 className="align-center">User Details</h3>
         <form className="form-group" >
@@ -306,7 +306,7 @@ class UserDetails extends Component {
       </div>
       {this.state.isLoading && <Loader isLoading={this.state.isLoading}/>}
       {this.state.popUpData && <AlertPopUp {...this.state.popUpData}/>}
-    </>
+    </div>
   );
   }
 };

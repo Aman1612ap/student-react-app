@@ -6,12 +6,15 @@ html {
 body {
   margin: 0;
   justify-content: center;
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: cover;
-  overflow: hidden;
   /* background-image: url('https://media.istockphoto.com/photos/childs-hand-and-light-bulb-illustration-and-point-word-picture-id1320114214'), linear-gradient(to right bottom, white, blue); */
-  background-image: linear-gradient(to right bottom, #7f3066, #0000ff66);
-
+  /* background-image: linear-gradient(to right bottom, #7f3066, #0000ff66); */
+  /* background-color: azure;  */
+  background-image: url('https://cdn1.vectorstock.com/i/1000x1000/59/10/success-student-school-logo-image-image-vector-14895910.jpg');
+  /* background-repeat: repeat; */
+  background-attachment: fixed;  
+  background-size: cover;
 }
 .main-container{
   display: flex;

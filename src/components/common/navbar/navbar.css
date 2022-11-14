@@ -37,5 +37,13 @@
     border-radius:5px;
 }
 .searchbox>button:hover{
-    border-radius: 25px;
+    border-radius: 30px;
+    background-color: azure;
+}
+.rightNav {
+    width: 20%;
+    text-align: right;
+    /* background-color: bisque; */
+    position: absolute;
+    right: 30px;;
 }

@@ -94,7 +94,7 @@ redirect(path) {
 
   render() {
    return (
-    <>
+    <div>
     <div className="signup">
         <form onSubmit={this.submit} noValidate autoComplete="off" className="form-group">
           <h3>Sign Up</h3>
@@ -137,7 +137,7 @@ redirect(path) {
 
       {this.state.isLoading && <Loader isLoading={this.state.isLoading}/>}
       {this.state.popUpData && <AlertPopUp {...this.state.popUpData}/>}
-    </>
+    </div>
    )
   };
 };

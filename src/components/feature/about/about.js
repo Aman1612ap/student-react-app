@@ -14,6 +14,18 @@ const About = () => {
           <p className="about__step step-3">3. User can check verification status, that are done by Admin.</p>
         </div>
         <div  className="about__note">Note:- Organigation can shortlist the data based on the verification status that are done by admin.</div>
+
+        <div>
+          <h2>version-2 <p>How they works</p></h2>
+          
+        <video controls width="100%" autoPlay>
+      <source src="https://www.youtube.com/watch?v=dVimmZT_x6U&feature=youtu.be" type="video/webm"/>
+      
+      Sorry, your browser doesn't support videos.
+    </video>
+    <a href='https://www.youtube.com/watch?v=dVimmZT_x6U'>PLAY ON YOUTUBE</a>
+        </div>
+
     </div>
   )
 }

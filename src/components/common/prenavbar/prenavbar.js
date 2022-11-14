@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 const Prenavbar = () => {
   return (
     <div className="prenavbar">
+      {/* <link rel="icon" type="image/x-icon" href="/images/favicon.ico"></link> */}
         <div>
-            <a href="/">Student verification</a> <span>|</span>
+            <a href="/">One Point Student verification</a> <span>|</span>
             <a href="/">Get On Mobile</a> <span>|</span>
-            {/* <a href="/">Feature</a> <span></span> */}
-            <Link to="/verify" className="navlink" >Feature</Link>  <span> </span>
+            {/* <Link to="/verify" className="navlink" >Feature</Link>  <span> </span> */}
 
         </div>
         <div>

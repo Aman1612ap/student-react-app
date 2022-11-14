@@ -48,13 +48,17 @@ const Verify = () => {
 
 
   return (
+    
     <div className='verification-container'>
       <h2 className='verification-heading align-center mb-10'>Verification
       </h2>
-      
+      <div> <img 
+      src='https://yournewzz.com/wp-content/uploads/2019/02/third-party-verification.jpg' 
+      alt='ty1'/></div>
       <div className='verification-wrapper align-center'>
-      <label>Aadhar no: </label>
-      <input onChange={handleChange} type="text" placeholder='Aadhar number' ></input>
+        
+      <label>Aadhar Number : </label>
+      <input onChange={handleChange} type="text" placeholder='Enter Aadhar number' ></input>
       {/* <label>Name :</label><input type="text"placeholder='Enter name'></input> */}
       <button onClick={verify} className="btn btn-primary mh-10">Check</button>
       </div>

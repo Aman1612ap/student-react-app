@@ -5,6 +5,7 @@ import "./navbar.css";
 const Navbar = () => {
   return (
     <div className="Nav">
+      
       <Link to="/" className="navlink">
         Home
       </Link>
@@ -16,11 +17,17 @@ const Navbar = () => {
       <Link to="/verify" className="navlink">
         Verification
       </Link>
-      <span> </span>
-      {/* <div className="searchbox">
+      {/* <div class="rightNav">
+                    <input type="text" name="search" id="search" />
+                    <button class="btn btn-sm">Search</button>
+                </div> */}
+      <span> 
+      
+      </span>
+      <div className="searchbox">
         <input type="text" name="search" placeholder="Search." />
         <button>Search</button>
-      </div> */}
+      </div>
     </div>
   );
 };
