@@ -7,7 +7,7 @@
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
-    "react-bootstrap": "2.6.0",
+    "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "install-build": "npm audit fix --force && react-scripts build"
+    "install-build": "npm i && react-scripts build"
   },
   "eslintConfig": {
     "extends": [
